@@ -1,6 +1,12 @@
 import { fail } from "@sveltejs/kit";
-import type { Actions } from "./$types";
+import type { Actions, PageServerLoad } from "./$types";
 import { prisma } from '$lib/server/prisma'; 
+
+export const load: PageServerLoad = async () => {
+    return{
+        articulos: await prisma.articulos.findMany(),
+    }
+}
 
 export const actions: Actions = {
     crearArticulos: async ({ request }) => {
@@ -25,4 +31,24 @@ export const actions: Actions = {
             status: 201
         }
     },
+    eliminarArtuculos: async ({ url }) => {
+        const id = url.searchParams.get("id")
+        if (!id) {
+            return fail(400, {message: 'Respuesta invalida.'})
+        }
+
+        try {
+            await prisma.articulos.delete({
+                where: {
+                    id: Number(id)
+                }
+            })
+        } catch (err) {
+            console.error(err)
+            return fail (500, {message: 'Algo salio mal al eliminar el Articulo.'})
+        }
+        return {
+            status: 200
+        }
+    }
 };
