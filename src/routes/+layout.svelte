@@ -1,6 +1,5 @@
 <script lang="ts">
   import "@picocss/pico";
-  let noche = true;
 </script>
 
 <div class="container">
