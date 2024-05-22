@@ -11,18 +11,21 @@
 	<div>
 		<h2>Articulos</h2>
 		{#each articulos as articulo }
-		<articles>
-			<header>{articulo.titulo}</header>
-			<p>
-				{articulo.contenido}
-			</p>
-			<form action="?/eliminarArtuculos&id={articulo.id}" method="POST">
-				<button type="submit" class="outline secondary">Borrar Artuculo</button>
-			</form>
-			<a href="/{articulo.id}" role="button" class="outline constrast" style="width: 100%;"> Editar Articulo</a>
-		</articles>
+			<article>
+				<header>{articulo.titulo}</header>
+				<p>
+					{articulo.contenido}
+				</p>
+				<form action="?/eliminarArtuculos&id={articulo.id}" method="POST">
+					<button type="submit" class="outline secondary">Eliminar Articulo</button>
+				</form>
+				<a href="/{articulo.id}" role="button" class="outline constrast" style="width: 100%;"
+					>Editar Articulo</a
+				>
+			</article>
 		{/each}
 	</div>
+	
 	<form action="?/crearArticulos" method="POST">
 		<h3>Nuevo Articulo</h3>
 		<label for="titulo"> Titulo</label>
